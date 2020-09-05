@@ -32,3 +32,6 @@ Start up page will look similar to this.
 - React js
 
 ## Preview
+
+[link to deployed app!]()
+![](employeeDirectoryAppDemo.gif)
