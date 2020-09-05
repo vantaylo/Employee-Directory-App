@@ -26,9 +26,9 @@ Start up page will look similar to this.
 
 # Technologies
 
-Node js
-Javascript
-APIs
-React Js
+- Node js
+- Javascript
+- APIs
+- React js
 
 ## Preview
