@@ -1,9 +1,15 @@
 import React from "react";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, useFilters, useGlobalFilter } from "react-table";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function SortTable({ columns, data }) {
-  // Use the state and functions returned from useTable to build your UI
+  const defaultColumn = React.useMemo(
+    () => ({
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  );
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -14,11 +20,13 @@ function SortTable({ columns, data }) {
     {
       columns,
       data,
+      defaultColumn,
     },
+    useFilters,
+    useGlobalFilter,
     useSortBy
   );
 
-  // Render the UI for your table
   return (
     <div>
       <table className="table" {...getTableProps()}>
@@ -26,17 +34,13 @@ function SortTable({ columns, data }) {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                // Add the sorting props to control sorting. For this example
-                // we can add them into the header props
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
+
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
                   {/* Add a sort direction indicator */}
                   <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
+                    {column.isSorted ? (column.isSortedDesc ? "▲" : "▼") : ""}
                   </span>
                 </th>
               ))}
@@ -59,9 +63,22 @@ function SortTable({ columns, data }) {
         </tbody>
       </table>
       <br />
-      <div>Showing the first 20 results of {rows.length} rows</div>
     </div>
   );
-}
 
+  function DefaultColumnFilter({
+    column: { filterValue, preFilteredRows, setFilter },
+  }) {
+    return (
+      <input
+        className="form-control"
+        value={filterValue || ""}
+        onChange={(e) => {
+          setFilter(e.target.value || undefined);
+        }}
+        placeholder={`Sort and Search...`}
+      />
+    );
+  }
+}
 export default SortTable;

@@ -7,8 +7,6 @@ function App() {
     "https://randomuser.me/api/?results=200&nat=us"
   );
 
-  console.log(response);
-
   return (
     <>
       {loading ? (
