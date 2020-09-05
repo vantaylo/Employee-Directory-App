@@ -1,23 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
+import useFetch from "./hooks/fetchAPI";
 import Employees from "./components/employees";
 
-class App extends Component {
-  state = {
-    employees: [],
-  };
+function App() {
+  const [response, loading, hasError] = useFetch(
+    "https://randomuser.me/api/?results=200&nat=us"
+  );
 
-  componentDidMount() {
-    fetch("https://randomuser.me/api/?results=200&nat=us")
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({ employees: data.results });
-      })
-      .catch(console.log);
-  }
+  console.log(response);
 
-  render() {
-    return <Employees employees={this.state.employees} />;
-  }
+  return (
+    <>
+      {loading ? (
+        <div>Loading...</div>
+      ) : hasError ? (
+        <div>Error occured.</div>
+      ) : (
+        <div>
+          <Employees data={response} />
+        </div>
+      )}
+    </>
+  );
 }
 
 export default App;

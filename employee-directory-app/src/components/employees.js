@@ -1,36 +1,83 @@
 import React from "react";
+import { useTable } from "react-table";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const Employees = ({ employees }) => {
+function Employees({ data }) {
+  const columns = [
+    {
+      Header: "Name",
+      columns: [
+        {
+          Header: "First Name",
+          accessor: "name.first",
+        },
+        {
+          Header: "Last Name",
+          accessor: "name.last",
+        },
+      ],
+    },
+    {
+      Header: "Info",
+      columns: [
+        {
+          Header: "Location",
+          accessor: "location.state",
+        },
+        {
+          Header: "Email",
+          accessor: "email",
+        },
+        {
+          Header: "Cell",
+          accessor: "cell",
+        },
+      ],
+    },
+  ];
+
+  console.log(data);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable({
+    columns,
+    data,
+  });
+
   return (
     <div>
-      <center>
-        <h1>Employee List</h1>
-      </center>
-
-      {employees.map((employee) => (
-        <ul key={employee.id.value}>
-          <div className="card">
-            <div className="card-body">
-              <img
-                className="card-title"
-                src={employee.picture.medium}
-                alt="employee"
-              />
-              <h5 className="card-title">
-                {employee.name.first} {employee.name.last}
-              </h5>
-              <h6 className="card-subtitle mb-2 text-muted">
-                {employee.location.city}, {employee.location.state}
-              </h6>
-              <p className="card-subtitle mb-2">{employee.email}</p>
-              <p className="card-subtitle mb-2">{employee.phone}</p>
-              <p className="card-subtitle mb-2">{employee.cell}</p>
-            </div>
-          </div>
-        </ul>
-      ))}
+      <table className="table" {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
 export default Employees;
