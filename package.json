@@ -6,7 +6,7 @@
     "npm": "6.13.4"
   },
   "private": true,
-  "homepage": "https://github.com/vantaylo/Employee-Directory-App",
+  "homepage": "http://vantaylo.github.io/employee-directory-app",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
