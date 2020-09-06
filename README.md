@@ -33,5 +33,5 @@ Start up page will look similar to this.
 
 ## Preview
 
-[link to deployed app!]()
+[Link to deployed app!](https://employee-directory-app1.herokuapp.com/)
 ![](employeeDirectoryAppDemo.gif)
