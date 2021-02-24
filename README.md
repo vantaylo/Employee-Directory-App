@@ -4,8 +4,8 @@ An employee directory with React.
 
 The user is able to:
 
-- Sort the table by at least one category
-- Filter the users by at least one property.
+- Sort the table
+- Filter the users
 
 # Technologies
 
@@ -16,9 +16,9 @@ The user is able to:
 
 ## Instructions
 
-- To setup, run npm install.
+- To setup, run $ npm install.
 
-- To run app, run npm start.
+- To run app, run $ npm start.
   - Start up page will look similar to this.
 ![](pageStartupScreenShot.png)
 
